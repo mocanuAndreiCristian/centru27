@@ -31,4 +31,5 @@
         </ul>
     </li>
 </ul>
-<h3><a href="https://27.surge.sh/7d" target="_blank">Website Orar Original</a></h3>
+<h3><a href="https://27.surge.sh/7d" target="_blank">Website Orar Original 7D</a></h3>
+<h3><a href="https://27.surge.sh/7e" target="_blank">Website Orar Original 7E</a></h3>
