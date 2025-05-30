@@ -158,7 +158,6 @@ const classData = {
                 img: "img/muzica.jpeg",
                 link: "https://manuale.edu.ro/manuale/Clasa%20a%20VII-a/Educatie%20muzicala/QVJUIEtMRVRU/",
             },
-            { title: "Opț Mate", img: "img/asq.jpg", link: "https://app.asq.ro/" },
             {
                 title: "Religie",
                 img: "img/religie.jpg",
@@ -281,11 +280,6 @@ const classData = {
                 title: "Muzică",
                 img: "img/muzica.jpeg",
                 link: "https://manuale.edu.ro/manuale/Clasa%20a%20VII-a/Educatie%20muzicala/QVJUIEtMRVRU/",
-            },
-            {
-                title: "Opț Matematică",
-                img: "img/manual-matematica.png",
-                link: "https://manuale.edu.ro/manuale/Clasa%20a%20VII-a/Matematica/Q09SSU5UIExPR0lTVElD/",
             },
             {
                 title: "Religie",
