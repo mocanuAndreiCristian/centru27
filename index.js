@@ -619,6 +619,12 @@ document.addEventListener("DOMContentLoaded", () => {
         addTaskInput.value = "";
         saveTasks();
     };
+    // Add this event listener to allow adding task with Enter key
+    addTaskInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            addTaskButton.click();
+        }
+    });
     taskList.onclick = (e) => {
         if (e.target.closest(".delete-btn")) {
             e.target.closest("li").remove();
