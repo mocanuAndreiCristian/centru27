@@ -574,66 +574,149 @@ function getWeatherDescription(code) {
 getWeather();
 setInterval(getWeather, 300000);
 
-// --- TO-DO LIST ---
+// --- TO-DO LIST WITH DRAG & DROP AND EDIT ---
 document.addEventListener("DOMContentLoaded", () => {
     const taskList = document.querySelector(".todo-list");
     const addTaskInput = document.querySelector(".add-task input[type='text']");
     const addTaskButton = document.querySelector(".add-task button");
-    const TODO_KEY = "todo-tasks"; // Shared key for all sites
+    const TODO_KEY = "todo-tasks";
+
+    function addTask(text, checked = false) {
+        const li = document.createElement("li");
+        li.className = "todo-item";
+        li.draggable = true;
+        li.innerHTML = `
+            <input type="checkbox" ${checked ? "checked" : ""}>
+            <label>${text}</label>
+            <button class="delete-btn" title="Șterge"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        `;
+        taskList.appendChild(li);
+        saveTasks();
+    }
 
     function saveTasks() {
         const tasks = [];
-        taskList.querySelectorAll("li").forEach((li) => {
-            tasks.push({
-                text: li.querySelector("label").textContent,
-                checked: li.querySelector("input[type='checkbox']").checked,
-            });
+        document.querySelectorAll(".todo-item").forEach((item) => {
+            const label = item.querySelector("label").textContent;
+            const checked = item.querySelector('input[type="checkbox"]').checked;
+            tasks.push({ text: label, checked });
         });
         localStorage.setItem(TODO_KEY, JSON.stringify(tasks));
     }
+
     function loadTasks() {
         taskList.innerHTML = "";
-        const tasks = JSON.parse(localStorage.getItem(TODO_KEY) || "[]");
-        tasks.forEach((task) => {
-            const li = document.createElement("li");
-            li.className = "todo-item";
-            li.innerHTML = `
-                <input type="checkbox" ${task.checked ? "checked" : ""}>
-                <label>${task.text}</label>
-                <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-            `;
-            taskList.appendChild(li);
-        });
+        const data = JSON.parse(localStorage.getItem(TODO_KEY)) || [];
+        data.forEach((task) => addTask(task.text, task.checked));
     }
-    addTaskButton.onclick = () => {
-        const text = addTaskInput.value.trim();
-        if (!text) return;
-        const li = document.createElement("li");
-        li.className = "todo-item";
-        li.innerHTML = `
-            <input type="checkbox">
-            <label>${text}</label>
-            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-        `;
-        taskList.appendChild(li);
-        addTaskInput.value = "";
-        saveTasks();
-    };
-    // Add this event listener to allow adding task with Enter key
-    addTaskInput.addEventListener("keydown", (e) => {
+
+    // Add task on button click
+    addTaskButton.addEventListener("click", () => {
+        const taskText = addTaskInput.value.trim();
+        if (taskText) {
+            addTask(taskText);
+            addTaskInput.value = "";
+        }
+    });
+
+    // Add task on Enter key
+    addTaskInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             addTaskButton.click();
         }
     });
-    taskList.onclick = (e) => {
-        if (e.target.closest(".delete-btn")) {
-            e.target.closest("li").remove();
+
+    // Task actions: delete, checkbox, edit (dblclick)
+    taskList.addEventListener("click", (e) => {
+        const target = e.target;
+        // Delete
+        if (target.classList.contains("delete-btn") || target.closest(".delete-btn")) {
+            const li = target.closest("li");
+            if (li) {
+                li.remove();
+                saveTasks();
+            }
+            return;
+        }
+        // Checkbox
+        if (target.type === "checkbox") {
             saveTasks();
         }
-        if (e.target.type === "checkbox") {
+    });
+
+    // Double click to edit
+    taskList.addEventListener("dblclick", (e) => {
+        const label = e.target.closest("label");
+        if (!label) return;
+        const li = label.closest("li");
+        const oldText = label.textContent;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = oldText;
+        input.className = "edit-task-input";
+        label.replaceWith(input);
+        input.focus();
+
+        function saveEdit() {
+            const newText = input.value.trim() || oldText;
+            const newLabel = document.createElement("label");
+            newLabel.textContent = newText;
+            input.replaceWith(newLabel);
             saveTasks();
         }
-    };
+        input.addEventListener("blur", saveEdit);
+        input.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                input.blur();
+            }
+        });
+    });
+
+    // Drag and drop functionality
+    let draggedItem = null;
+
+    taskList.addEventListener("dragstart", (e) => {
+        if (e.target.classList.contains("todo-item")) {
+            draggedItem = e.target;
+            e.target.classList.add("dragging");
+        }
+    });
+
+    taskList.addEventListener("dragend", (e) => {
+        if (e.target.classList.contains("todo-item")) {
+            e.target.classList.remove("dragging");
+            draggedItem = null;
+            saveTasks();
+        }
+    });
+
+    taskList.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(taskList, e.clientY);
+        if (!draggedItem) return;
+        if (afterElement == null) {
+            taskList.appendChild(draggedItem);
+        } else {
+            taskList.insertBefore(draggedItem, afterElement);
+        }
+    });
+
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll(".todo-item:not(.dragging)")];
+        return draggableElements.reduce(
+            (closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            },
+            { offset: -Infinity }
+        ).element;
+    }
+
     loadTasks();
 });
 
