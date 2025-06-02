@@ -525,9 +525,14 @@ h2 {
     justify-content: center;
     animation: fadeInUp 1.5s ease;
     margin: auto;
-    width: 50vw;
-    height: 75vh;
+    width: 60vw;
+    height: 100vh;
     overflow-y: scroll;
+}
+
+.boss-container:hover {
+    border: var(--accent-color) 1px solid;
+    box-shadow: 0 4px 20px var(--accent-color);
 }
 
 .container {
