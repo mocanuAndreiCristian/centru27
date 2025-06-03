@@ -359,6 +359,54 @@ mark {
     animation: spin 15s linear infinite;
 }
 
+@keyframes rotate-once-right {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+@keyframes rotate-once-left {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-180deg);
+    }
+}
+.rotate-once-right {
+    animation: rotate-once-right calc(var(--transition-speed) + 0.1s) linear;
+}
+.rotate-once-left {
+    animation: rotate-once-left calc(var(--transition-speed) + 0.1s) linear;
+}
+
+/* Remove fadeInDown and use slide for menu */
+.settings-menu {
+    position: absolute;
+    left: 60px;
+    background: var(--card-bg);
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    padding: 1rem;
+    z-index: 100;
+    flex-direction: row;
+    gap: 1rem;
+    min-width: 60px;
+    opacity: 0;
+    transform: translateX(-30px);
+    pointer-events: none;
+    transition: opacity var(--transition-speed), transform var(--transition-speed);
+    animation: none !important;
+    display: flex; /* Always flex for transition to work */
+}
+.settings-menu.open {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
 @media (max-width: 1450px) {
     .big-container {
         flex-direction: column;
@@ -866,7 +914,6 @@ footer {
 /* Settings */
 
 .settings-menu {
-    display: none;
     position: absolute;
     left: 60px;
     background: var(--card-bg);
@@ -877,8 +924,18 @@ footer {
     flex-direction: row;
     gap: 1rem;
     min-width: 60px;
-    animation: fadeInDown var(--transition-speed);
-    transition: all var(--transition-speed);
+    opacity: 0;
+    transform: translateX(-30px);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    animation: none !important;
+    display: flex; /* Always flex for transition to work */
+}
+
+.settings-menu.open {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
 .header {

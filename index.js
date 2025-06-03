@@ -724,14 +724,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const settingsButton = document.getElementById("settingsButton");
 const settingsMenu = document.getElementById("settingsMenu");
+const settingsIcon = settingsButton.querySelector("i");
+
+function rotateSettingsIcon(direction) {
+    settingsIcon.classList.remove("rotate-once-right", "rotate-once-left");
+    void settingsIcon.offsetWidth; // Force reflow to restart animation
+    if (direction === "right") {
+        settingsIcon.classList.add("rotate-once-right");
+    } else {
+        settingsIcon.classList.add("rotate-once-left");
+    }
+}
 
 settingsButton.addEventListener("click", (e) => {
     e.stopPropagation();
-    settingsMenu.style.display = settingsMenu.style.display === "flex" ? "none" : "flex";
+    const isOpening = !settingsMenu.classList.contains("open");
+    settingsMenu.classList.toggle("open");
+    rotateSettingsIcon(isOpening ? "right" : "left");
 });
+
 document.addEventListener("click", (e) => {
-    if (!settingsMenu.contains(e.target) && e.target !== settingsButton) {
-        settingsMenu.style.display = "none";
+    if (!settingsMenu.contains(e.target) && !settingsButton.contains(e.target)) {
+        if (settingsMenu.classList.contains("open")) {
+            settingsMenu.classList.remove("open");
+            rotateSettingsIcon("left");
+        }
     }
 });
 
