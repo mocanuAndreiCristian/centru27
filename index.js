@@ -166,7 +166,7 @@ const classData = {
             {
                 title: "Română",
                 img: "img/romana.jpg",
-                link: "https://manuale.edu.ro/manuale/Clasa%20a%20VII-a/Limba%20si%20literatura%20romana/QVJUIEtMRVRU/#book/00",
+                link: "https://manuale.edu.ro/manuale/Clasa%20a%20VII-a/Limba%20si%20literatura%20romana/QVJUIEtMRVRU/A1729.pdf",
             },
             {
                 title: "Tehnologică",
