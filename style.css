@@ -965,11 +965,12 @@ footer {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.25;
+    opacity: 0.5;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     transition: all var(--transition-speed);
+    filter: blur(8px) brightness(0.85); /* blur and dim */
 }
 body {
     position: relative;
