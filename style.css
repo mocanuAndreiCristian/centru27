@@ -980,3 +980,83 @@ body {
 #location-dot {
     color: var(--accent-color);
 }
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 500px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #classSelector {
+        width: 100%;
+        margin: 0.5rem 0;
+        font-size: 1rem;
+    }
+
+    .big-container {
+        gap: 1rem;
+        padding: 0;
+        flex-direction: column;
+    }
+
+    .info-panel,
+    .weather-container,
+    .time-display {
+        width: 100%;
+    }
+
+    .footer-content,
+    .todo-card {
+        max-width: 100%;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .todo-container {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .boss-container {
+        width: 100%;
+        padding: 1rem;
+        height: auto;
+        overflow-y: visible;
+        flex-direction: column;
+    }
+
+    .container {
+        width: 90% !important;
+        margin: 1rem auto;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .timetable-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .socials div {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .socials h3 {
+        font-size: 1.25rem;
+    }
+
+    .socials a {
+        font-size: 2rem;
+    }
+}
+
+/* Horizontal scroll helper for big tables */
+.timetable-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}

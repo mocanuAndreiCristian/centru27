@@ -424,7 +424,7 @@ function setupSubjectHighlight() {
 }
 function startHighlightLoop() {
     highlightCurrent();
-    setInterval(highlightCurrent, 10000);
+    setInterval(highlightCurrent, 2000);
 }
 startHighlightLoop();
 
