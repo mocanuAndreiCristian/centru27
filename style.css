@@ -574,12 +574,11 @@ h2 {
     animation: fadeInUp 1.5s ease;
     margin: auto;
     width: 60vw;
-    height: 100vh;
+    height: 90vh;
     overflow-y: scroll;
-}
-
-.boss-container:hover {
-    border: var(--accent-color) 1px solid;
+    position: relative; /* Needed for absolute positioning of pseudo-elements */
+    border: var(--accent-color) 4px solid;
+    border-radius: 16px;
     box-shadow: 0 4px 20px var(--accent-color);
 }
 
@@ -598,7 +597,7 @@ h2 {
     margin-inline: auto;
     margin-bottom: 1rem;
     width: 90%;
-    border-radius: 24px;
+    border-radius: 16px;
     opacity: 0.9;
     transition: var(--transition-speed);
 }
