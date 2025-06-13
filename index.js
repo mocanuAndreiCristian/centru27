@@ -770,3 +770,12 @@ if (lastClass && document.getElementById("classSelector")) {
     document.getElementById("classSelector").value = lastClass;
 }
 updateClass();
+
+// Fancy horizontal scroll indicator
+const scrollIndicator = document.getElementById("scroll-indicator");
+window.addEventListener("scroll", () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+    const percent = scrollable > 0 ? (scrolled / scrollable) * 100 : 0;
+    scrollIndicator.style.width = percent + "%";
+});
