@@ -406,6 +406,18 @@ function highlightCurrent() {
     if (hourOfTheDay) {
         const mins = date.getMinutes().toString().padStart(2, "0");
         hourOfTheDay.textContent = `${date.getHours()}:${mins}`;
+
+        // --- Add date display below time ---
+        let dateDisplay = document.getElementById("dateOfTheDay");
+        if (!dateDisplay) {
+            dateDisplay = document.createElement("div");
+            dateDisplay.id = "dateOfTheDay";
+            hourOfTheDay.after(dateDisplay);
+        }
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear();
+        dateDisplay.textContent = `${day}.${month}.${year}`;
     }
 }
 function setupSubjectHighlight() {
