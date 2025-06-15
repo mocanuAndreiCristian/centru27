@@ -779,3 +779,34 @@ window.addEventListener("scroll", () => {
     const percent = scrollable > 0 ? (scrolled / scrollable) * 100 : 0;
     scrollIndicator.style.width = percent + "%";
 });
+
+// Favicon
+
+function updateFavicon(accentColor) {
+    const size = 16;
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    // Draw circle with accent color
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = accentColor;
+    ctx.fill();
+    // Set as favicon
+    const link = document.querySelector("link[rel~='icon']") || document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/png";
+    link.href = canvas.toDataURL("image/png");
+    document.head.appendChild(link);
+}
+
+// Initial set
+updateFavicon(getComputedStyle(document.documentElement).getPropertyValue("--accent-color").trim());
+
+// Update when accent color changes
+const accentColorPicker = document.getElementById("accentColorPicker");
+if (accentColorPicker) {
+    accentColorPicker.addEventListener("input", (e) => {
+        updateFavicon(e.target.value);
+    });
+}
