@@ -10,6 +10,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     </head>
     <body>
+        <canvas id="canvas"></canvas>
         <div id="scroll-indicator-bg">
             <div id="scroll-indicator"></div>
         </div>
@@ -27,6 +28,11 @@
                             <i class="fa-solid fa-paintbrush"></i>
                         </button>
                         <input type="color" id="accentColorPicker" value="#6196ff" />
+                    </div>
+                    <div class="party-mode">
+                        <button id="partyModeButton" class="btn" title="Activează modul petrecere">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </button>
                     </div>
                 </div>
                 <select id="classSelector" class="title">
@@ -93,10 +99,6 @@
                     <p>Controale:</p>
                     <ul>
                         <li>click pe o materie = evidențiere</li>
-                        <li>
-                            ` = pornește/oprește imaginea de fundal (trebuie să existe o imagine
-                            deja selectată)
-                        </li>
                         <li>
                             To-Do List
                             <ul>
